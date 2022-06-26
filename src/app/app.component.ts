@@ -9,13 +9,15 @@ import { AppareilService } from './service/appareil.service';
 export class AppComponent implements OnInit {
   isAuth = false;
 
-  lastUpdate: Promise<Date> = new Promise((resolve, reject) => {
-    const date: Date = new Date();
-    setTimeout(
-      () => {
-        resolve(date);
-      }, 2000);
-  });
+  // lastUpdate: Promise<Date> = new Promise((resolve, reject) => {
+  //   const date: Date = new Date();
+  //   setTimeout(
+  //     () => {
+  //       resolve(date);
+  //     }, 2000);
+  // });
+
+  lastUpdate = new Date()
 
 
   appareils: any[] = []
