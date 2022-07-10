@@ -4,6 +4,9 @@
       <li routerLinkActive="active"><a [routerLink]="['/auth']">Auhentification</a></li> <!-- routerLinkActive="active" = class active mise quand on est dessus -->
       <li routerLinkActive="active"><a [routerLink]="['/appareils']">Appareils</a></li>
     </ul>
+    <div class="navbar-right">
+      <p>Vous êtes connecté depuis : {{secondes}} secondes</p>
+    </div>
   </div>
 
 </nav>
