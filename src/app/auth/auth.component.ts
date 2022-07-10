@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  authStatus: boolean
 
-  ngOnInit(): void {
+  constructor(private authService: AuthService, private router: Router) {
+    this.authStatus = false
   }
 
+  ngOnInit(): void {
+    this.authStatus = this.authService.isAuth
+  }
+
+  onSignIn() {
+    this.authService.signIn().then(() => {
+      this.router.navigate(['appareils'])
+      this.authStatus = this.authService.isAuth
+    });
+  }
+
+  onSignOut() {
+    this.authService.signOut();
+    this.authStatus = this.authService.isAuth
+    console.log('déconnexion avec succés')
+  }
 }

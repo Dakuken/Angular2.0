@@ -1,4 +1,12 @@
-<!-- Highlight Card -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li routerLinkActive="active"><a [routerLink]="['/auth']">Auhentification</a></li> <!-- routerLinkActive="active" = class active mise quand on est dessus -->
+      <li routerLinkActive="active"><a [routerLink]="['/appareils']">Appareils</a></li>
+    </ul>
+  </div>
+
+</nav>
 <div class="container">
   <div class="row">
     <router-outlet></router-outlet>
