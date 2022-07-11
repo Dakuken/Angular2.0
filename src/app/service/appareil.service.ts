@@ -1,27 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
+@Injectable()
 export class AppareilService {
 
     appareilSuject = new Subject<any[]>();
 
-    private appareils = [
-        {
-            id: 1,
-            name: 'Machine à laver',
-            status: 'éteint'
-        },
-        {
-            id: 2,
-            name: 'Télévision',
-            status: 'allumé'
-        },
-        {
-            id: 3,
-            name: 'Ordinateur',
-            status: 'éteint'
-        }
-    ];
+    private appareils = <any[]>[];
+
+    constructor(private httpClient: HttpClient) { }
 
     emitAppareilSubject() {
         this.appareilSuject.next(this.appareils.slice()) //slice pour la copie
@@ -74,4 +62,32 @@ export class AppareilService {
         this.emitAppareilSubject()
     }
 
+    saveAppareilToServer() {
+        this.httpClient
+            .put('https://angular20-32ea6-default-rtdb.firebaseio.com/appareils.json', this.appareils)
+            .subscribe(
+                () => {
+                    console.log('Enregistrement terminé !');
+
+                },
+                (error: any) => {
+                    console.log('erreur de sauvegarde !' + error);
+
+                }
+            )
+    }
+
+    getAppareilFromServer() {
+        this.httpClient
+            .get<any[]>('https://angular20-32ea6-default-rtdb.firebaseio.com/appareils.json')
+            .subscribe(
+                (response) => {
+                    this.appareils = response
+                    this.emitAppareilSubject()
+                },
+                (error: any) => {
+                    console.log('erreur de chargement' + error);
+                }
+            )
+    }
 }
